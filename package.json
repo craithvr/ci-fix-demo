@@ -1,0 +1,18 @@
+{
+  "name": "ci-fix-demo",
+  "version": "1.0.0",
+  "description": "Demo project showcasing CI failure diagnosis and fix",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "lint": "eslint src/"
+  },
+  "keywords": ["ci", "demo", "github-actions"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "eslint": "^8.56.0"
+  }
+}

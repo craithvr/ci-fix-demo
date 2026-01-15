@@ -1,0 +1,33 @@
+diff --git a/.github/workflows/ci.yml b/.github/workflows/ci.yml
+index abc1234..def5678 100644
+--- a/.github/workflows/ci.yml
++++ b/.github/workflows/ci.yml
+@@ -1,6 +1,4 @@
+-# BROKEN WORKFLOW - Contains intentional errors for demonstration
+-# See fix.patch and README.md for the solution
+-
++# FIXED WORKFLOW
+ name: CI
+
+ on:
+@@ -17,17 +15,17 @@ jobs:
+       - name: Setup Node.js
+         uses: actions/setup-node@v4
+         with:
+-          node-version: '16'  # BUG #1: Node 16 lacks native fetch API
++          node-version: '20'
++          cache: 'npm'  # Built-in caching is simpler and more reliable
+
+-      - name: Cache dependencies
+-        uses: actions/cache@v4
+-        with:
+-          path: node_modules  # BUG #2: Should cache ~/.npm, not node_modules
+-          key: ${{ runner.os }}-node-${{ hashFiles('package.json') }}  # BUG #3: Should use package-lock.json
++      # Removed manual cache step - using setup-node's built-in cache instead
+
+       - name: Install dependencies
+-        run: npm install  # BUG #4: Should use npm ci for reproducible builds
++        run: npm ci
+
+       - name: Run linter
+         run: npm run lint

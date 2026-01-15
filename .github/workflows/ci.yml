@@ -1,6 +1,4 @@
-# BROKEN WORKFLOW - Contains intentional errors for demonstration
-# See fix.patch and README.md for the solution
-
+# FIXED WORKFLOW - Apply this to replace ci.yml
 name: CI
 
 on:
@@ -19,16 +17,11 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '16'  # BUG #1: Node 16 lacks native fetch API
-
-      - name: Cache dependencies
-        uses: actions/cache@v4
-        with:
-          path: node_modules  # BUG #2: Should cache ~/.npm, not node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('package.json') }}  # BUG #3: Should use package-lock.json
+          node-version: '20'  # FIX #1: Node 20 has native fetch API
+          cache: 'npm'        # FIX #2 & #3: Built-in npm caching handles everything
 
       - name: Install dependencies
-        run: npm install  # BUG #4: Should use npm ci for reproducible builds
+        run: npm ci  # FIX #4: npm ci is faster and reproducible
 
       - name: Run linter
         run: npm run lint
